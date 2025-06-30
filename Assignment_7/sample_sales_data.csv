@@ -1,0 +1,51 @@
+OrderID,Date,CustomerName,Product,Category,Quantity,Price,Total
+1001,2025-06-01,Customer_1,Keyboard,Stationery,5,943.43,4717.15
+1002,2025-06-02,Customer_2,Notebook,Stationery,1,602.88,602.88
+1003,2025-06-03,Customer_3,Mouse,Furniture,1,697.84,697.84
+1004,2025-06-04,Customer_4,Monitor,Electronics,1,881.66,881.66
+1005,2025-06-05,Customer_5,Keyboard,Accessories,1,628.11,628.11
+1006,2025-06-06,Customer_6,Backpack,Furniture,4,302.68,1210.72
+1007,2025-06-07,Customer_7,Desk Chair,Accessories,3,114.44,343.32
+1008,2025-06-08,Customer_8,Keyboard,Accessories,3,461.97,1385.91
+1009,2025-06-09,Customer_9,Mouse,Furniture,1,226.26,226.26
+1010,2025-06-10,Customer_10,Monitor,Furniture,3,422.34,1267.02
+1011,2025-06-11,Customer_11,Notebook,Furniture,3,884.45,2653.3500000000004
+1012,2025-06-12,Customer_12,Mouse,Furniture,1,331.1,331.1
+1013,2025-06-13,Customer_13,Mouse,Furniture,3,130.87,392.61
+1014,2025-06-14,Customer_14,Desk Chair,Accessories,5,362.73,1813.65
+1015,2025-06-15,Customer_15,Pen,Furniture,2,907.76,1815.52
+1016,2025-06-16,Customer_16,Monitor,Electronics,2,279.41,558.82
+1017,2025-06-17,Customer_17,Smartphone,Stationery,1,651.21,651.21
+1018,2025-06-18,Customer_18,Mouse,Furniture,4,10.52,42.08
+1019,2025-06-19,Customer_19,Pen,Furniture,1,359.04,359.04
+1020,2025-06-20,Customer_20,Smartphone,Accessories,4,311.73,1246.92
+1021,2025-06-21,Customer_21,Monitor,Furniture,2,173.01,346.02
+1022,2025-06-22,Customer_22,Laptop,Furniture,1,538.75,538.75
+1023,2025-06-23,Customer_23,Backpack,Furniture,5,489.98,2449.9
+1024,2025-06-24,Customer_24,Pen,Accessories,3,695.51,2086.5299999999997
+1025,2025-06-25,Customer_25,Office Table,Furniture,4,276.72,1106.88
+1026,2025-06-26,Customer_26,Laptop,Stationery,3,251.68,755.04
+1027,2025-06-27,Customer_27,Backpack,Accessories,3,176.61,529.83
+1028,2025-06-28,Customer_28,Desk Chair,Stationery,1,226.58,226.58
+1029,2025-06-29,Customer_29,Keyboard,Accessories,3,562.52,1687.56
+1030,2025-06-30,Customer_30,Notebook,Furniture,5,409.8,2049.0
+1031,2025-07-01,Customer_31,Office Table,Stationery,3,74.24,222.71999999999997
+1032,2025-07-02,Customer_32,Desk Chair,Accessories,1,261.38,261.38
+1033,2025-07-03,Customer_33,Monitor,Electronics,5,254.41,1272.05
+1034,2025-07-04,Customer_34,Desk Chair,Furniture,2,699.34,1398.68
+1035,2025-07-05,Customer_35,Keyboard,Accessories,3,715.15,2145.45
+1036,2025-07-06,Customer_36,Monitor,Electronics,1,156.61,156.61
+1037,2025-07-07,Customer_37,Office Table,Accessories,2,997.76,1995.52
+1038,2025-07-08,Customer_38,Keyboard,Electronics,2,274.11,548.22
+1039,2025-07-09,Customer_39,Smartphone,Furniture,4,976.85,3907.4
+1040,2025-07-10,Customer_40,Notebook,Stationery,5,416.93,2084.65
+1041,2025-07-11,Customer_41,Office Table,Electronics,3,42.72,128.16
+1042,2025-07-12,Customer_42,Smartphone,Accessories,1,351.62,351.62
+1043,2025-07-13,Customer_43,Backpack,Furniture,4,638.01,2552.04
+1044,2025-07-14,Customer_44,Office Table,Electronics,5,683.9,3419.5
+1045,2025-07-15,Customer_45,Backpack,Accessories,4,535.63,2142.52
+1046,2025-07-16,Customer_46,Monitor,Accessories,5,453.31,2266.55
+1047,2025-07-17,Customer_47,Smartphone,Accessories,5,557.36,2786.8
+1048,2025-07-18,Customer_48,Notebook,Electronics,3,596.77,1790.31
+1049,2025-07-19,Customer_49,Keyboard,Electronics,5,90.04,450.20000000000005
+1050,2025-07-20,Customer_50,Mouse,Electronics,4,375.96,1503.84

@@ -1,0 +1,12 @@
+df = spark.sql("select * from default.sales_data")
+display(df)
+
+df_Selected = df.select("product_name", "category", "country", "customer_name", "coupon_used", "sales_amount")
+display(df_Selected)
+
+from pyspark.sql import functions as F
+total_sum = df_Selected.agg(F.sum("sales_amount").alias("sum")).collect()[0]["sum"]
+df_update_sum = df_Selected.withColumn("sum", F.lit(total_sum))
+display(df_update_sum)
+
+delta_table = df_update_sum.write.format("delta").mode("overwrite").saveAsTable("delta_sales_data")

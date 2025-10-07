@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Energy Dashboard</title>
+  <style>
+    /* Same background space effect */
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(ellipse at bottom, #0d1b2a, #000);
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+    }
+
+    /* Floating glowing particles */
+    .particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+    .particles span {
+      position: absolute;
+      display: block;
+      width: 8px;
+      height: 8px;
+      background: #00f5ff;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: float 15s infinite linear;
+    }
+    @keyframes float {
+      from { transform: translateY(100vh) scale(0.5); }
+      to { transform: translateY(-10vh) scale(1.2); }
+    }
+
+    /* Card container */
+    .register-container {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 16px;
+      width: 350px;
+      z-index: 1;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,255,255,0.2);
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .register-container h2 {
+      margin-bottom: 20px;
+      color: #00f5ff;
+      text-shadow: 0 0 10px #00f5ff;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #bde0fe;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      box-shadow: inset 0 0 8px rgba(0,255,255,0.3);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #00f5ff, #0066ff);
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px #00f5ff;
+    }
+
+    p {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #bde0fe;
+    }
+
+    p a {
+      color: #00f5ff;
+      text-decoration: none;
+    }
+    p a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating glowing particles -->
+  <div class="particles">
+    <span style="left:10%; animation-duration:12s;"></span>
+    <span style="left:25%; animation-duration:18s;"></span>
+    <span style="left:40%; animation-duration:15s;"></span>
+    <span style="left:60%; animation-duration:20s;"></span>
+    <span style="left:80%; animation-duration:10s;"></span>
+  </div>
+
+  <!-- Register form -->
+  <div class="register-container">
+    <h2>Create Account</h2>
+    <form method="POST" action="{{ url_for('auth.register') }}">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" name="username" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" name="email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" required>
+      </div>
+
+      <div class="form-group">
+        <label for="confirm_password">Confirm Password</label>
+        <input type="password" name="confirm_password" required>
+      </div>
+
+      <button type="submit">Register</button>
+    </form>
+    <p>Already have an account? <a href="{{ url_for('auth.login') }}">Login here</a>.</p>
+  </div>
+</body>
+</html>

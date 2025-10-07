@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Energy Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
+</head>
+<body class="bg-black text-white font-sans">
+  <div id="tsparticles" class="fixed w-full h-full -z-10"></div>
+  <main class="p-6">
+    <h1 class="text-3xl font-bold text-center mb-8">Energy Consumption Dashboard</h1>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-10">
+      <div class="bg-white bg-opacity-10 backdrop-blur-md p-4 rounded-xl shadow-xl border border-white border-opacity-20 text-center">
+        <h2 class="text-xl font-semibold">Voltage</h2>
+        <p id="voltageStat" class="text-2xl text-blue-400">-- V</p>
+      </div>
+      <div class="bg-white bg-opacity-10 backdrop-blur-md p-4 rounded-xl shadow-xl border border-white border-opacity-20 text-center">
+        <h2 class="text-xl font-semibold">Current</h2>
+        <p id="currentStat" class="text-2xl text-green-400">-- A</p>
+      </div>
+      <div class="bg-white bg-opacity-10 backdrop-blur-md p-4 rounded-xl shadow-xl border border-white border-opacity-20 text-center">
+        <h2 class="text-xl font-semibold">Today's Cost</h2>
+        <p id="costStat" class="text-2xl text-yellow-300">--</p>
+      </div>
+      <div class="bg-white bg-opacity-10 backdrop-blur-md p-4 rounded-xl shadow-xl border border-white border-opacity-20 text-center">
+        <h2 class="text-xl font-semibold">Alerts</h2>
+        <p id="alertsStat" class="text-2xl text-red-400">--</p>
+      </div>
+      <div class="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 rounded-xl shadow-xl border border-white border-opacity-20 text-center">
+        <h2 class="text-xl font-semibold">High Usage Area</h2>
+        <p id="zoneStat" class="text-2xl">--</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="bg-white bg-opacity-10 p-4 rounded-xl">
+        <h3 class="text-lg font-bold mb-2">Voltage Over Time</h3>
+        <canvas id="voltageChart"></canvas>
+      </div>
+      <div class="bg-white bg-opacity-10 p-4 rounded-xl">
+        <h3 class="text-lg font-bold mb-2">Current Flow</h3>
+        <canvas id="currentChart"></canvas>
+      </div>
+      <div class="bg-white bg-opacity-10 p-4 rounded-xl">
+        <h3 class="text-lg font-bold mb-2">Daily Consumption</h3>
+        <canvas id="dailyChart"></canvas>
+      </div>
+      <div class="bg-white bg-opacity-10 p-4 rounded-xl">
+        <h3 class="text-lg font-bold mb-2">Weekly Comparison</h3>
+        <canvas id="weeklyChart"></canvas>
+      </div>
+      <div class="bg-white bg-opacity-10 p-4 rounded-xl">
+        <h3 class="text-lg font-bold mb-2">Live Energy Usage</h3>
+        <canvas id="savingsChart"></canvas>
+      </div>
+      <div class="bg-white bg-opacity-10 p-4 rounded-xl">
+        <h3 class="text-lg font-bold mb-2">Power Factor Trend</h3>
+        <canvas id="powerFactorChart"></canvas>
+      </div>
+    </div>
+  </main>
+  <footer class="mt-10 p-4 text-center border-t border-white border-opacity-10">
+    <p class="text-sm text-white text-opacity-60">Designed with ❤️ by Sumit Todwal<br>Energy Monitoring Dashboard Project</p>
+  </footer>
+  <script>
+    function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+    function randomFloat(min, max, decimals=2) { return +(Math.random() * (max - min) + min).toFixed(decimals); }
+    function pick(arr) { return arr[randomInt(0, arr.length - 1)]; }
+
+    const timeLabels = Array.from({length: 10}, (_, i) => `${10 + i}AM`);
+    const zoneLabels = ['Zone A', 'Zone B', 'Zone C'];
+    const weekdayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const weekLabels = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+    const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+
+    // Charts
+    const voltageChart = new Chart(document.getElementById('voltageChart'), {
+      type: 'line',
+      data: {
+        labels: timeLabels,
+        datasets: [{
+          label: 'Voltage (V)',
+          data: Array.from({length:10}, () => randomInt(210, 235)),
+          borderColor: 'cyan',
+          tension: 0.4,
+          fill: false
+        }]
+      }
+    });
+    const currentChart = new Chart(document.getElementById('currentChart'), {
+      type: 'bar',
+      data: {
+        labels: zoneLabels,
+        datasets: [{
+          label: 'Current (A)',
+          data: Array.from({length:3}, () => randomFloat(3, 7)),
+          backgroundColor: ['#38bdf8', '#34d399', '#f87171']
+        }]
+      }
+    });
+    const dailyChart = new Chart(document.getElementById('dailyChart'), {
+      type: 'bar',
+      data: {
+        labels: weekdayLabels,
+        datasets: [{
+          label: 'kWh Used',
+          data: Array.from({length:7}, () => randomInt(20, 38)),
+          backgroundColor: '#facc15'
+        }]
+      }
+    });
+    const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
+      type: 'line',
+      data: {
+        labels: weekLabels,
+        datasets: [{
+          label: 'Total Consumption (kWh)',
+          data: Array.from({length:4}, () => randomInt(120, 170)),
+          borderColor: '#a78bfa',
+          tension: 0.4
+        }]
+      }
+    });
+    const savingsChart = new Chart(document.getElementById('savingsChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Used', 'Available'],
+        datasets: [{
+          data: [randomInt(70, 95), randomInt(5, 30)],
+          backgroundColor: ['#ef4444', '#4ade80']
+        }]
+      }
+    });
+    const powerFactorChart = new Chart(document.getElementById('powerFactorChart'), {
+      type: 'line',
+      data: {
+        labels: monthLabels,
+        datasets: [{
+          label: 'Power Factor',
+          data: Array.from({length:6}, () => randomFloat(0.91, 0.99, 3)),
+          borderColor: '#f472b6',
+          tension: 0.3
+        }]
+      }
+    });
+
+    function updateAllStatsAndCharts() {
+      document.getElementById('voltageStat').textContent = randomInt(200, 240) + ' V';
+      document.getElementById('currentStat').textContent = randomFloat(3, 7) + ' A';
+      document.getElementById('costStat').textContent = '₹' + randomInt(90, 180);
+      document.getElementById('alertsStat').textContent = randomInt(0, 6);
+      document.getElementById('zoneStat').textContent = pick(['Zone A', 'Zone B', 'Zone C', 'Zone D']);
+
+      voltageChart.data.datasets[0].data = Array.from({length:10}, () => randomInt(210, 235));
+      voltageChart.update();
+      currentChart.data.datasets.data = Array.from({length:3}, () => randomFloat(3, 7));
+      currentChart.update();
+      dailyChart.data.datasets.data = Array.from({length:7}, () => randomInt(20, 38));
+      dailyChart.update();
+      weeklyChart.data.datasets.data = Array.from({length:4}, () => randomInt(120, 170));
+      weeklyChart.update();
+      savingsChart.data.datasets.data = [randomInt(70, 95), randomInt(5, 30)];
+      savingsChart.update();
+      powerFactorChart.data.datasets.data = Array.from({length:6}, () => randomFloat(0.91, 0.99, 3));
+      powerFactorChart.update();
+    }
+
+    updateAllStatsAndCharts(); // initial load
+    setInterval(updateAllStatsAndCharts, 3000); // auto-update all factors every 5 seconds
+
+    // tsParticles Background
+    tsParticles.load("tsparticles", {
+      particles: {
+        number: { value: 75 },
+        color: { value: "#00ffff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.3 },
+        size: { value: 2 },
+        move: { enable: true, speed: 1, direction: "none", outModes: "out" }
+      },
+      background: { color: "#000000" },
+      fullScreen: { enable: false }
+    });
+  </script>
+</body>
+</html>

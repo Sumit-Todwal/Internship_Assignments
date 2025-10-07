@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Energy Dashboard{% endblock %}</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+      body {
+        background: radial-gradient(circle at top, #0a0f24, #000);
+        color: #e0e6f0;
+      }
+      .glow {
+        text-shadow: 0 0 10px #00f2ff, 0 0 20px #0066ff;
+      }
+      .card {
+        background: rgba(20, 20, 40, 0.85);
+        box-shadow: 0 0 15px rgba(0,255,255,0.15), inset 0 0 10px rgba(0,255,255,0.05);
+        border-radius: 16px;
+      }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Navbar
+    {% include 'components/navbar.html' %} -->
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden flex-1 flex items-center">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 py-20 text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold glow leading-tight">
+                Smarter Energy Management for Your Industry
+            </h1>
+            <p class="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
+                Monitor, analyze, and optimize energy consumption in real-time.<br>
+                Empowering industries with insights to save costs and go green 🌱.
+            </p>
+            <div class="mt-8 flex justify-center gap-4">
+                <a href="{{ url_for('auth.login') }}" 
+                   class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-600 text-white font-semibold shadow-lg hover:scale-105 transform transition">
+                   🚀 Get Started
+                </a>
+                <a href="#features" 
+                   class="px-6 py-3 rounded-xl bg-gray-800 border border-cyan-400 text-cyan-300 font-medium hover:bg-gray-700 transition">
+                   Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alerts -->
+    <div class="max-w-5xl mx-auto px-6">
+        {% include 'components/alerts.html' %}
+    </div>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16">
+        <div class="max-w-6xl mx-auto px-6 lg:px-12">
+            <h2 class="text-3xl font-bold text-center glow">Why Choose Energy Dashboard?</h2>
+            <p class="mt-4 text-center text-gray-400 max-w-2xl mx-auto">
+                Designed for industry owners to easily manage devices, track energy usage, and receive real-time alerts.
+            </p>
+
+            <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="p-6 card hover:scale-105 transition">
+                    <h3 class="text-xl font-semibold text-cyan-400">⚡ Real-time Monitoring</h3>
+                    <p class="mt-2 text-gray-300">Track voltage, current, and power usage instantly on your dashboard.</p>
+                </div>
+                <div class="p-6 card hover:scale-105 transition">
+                    <h3 class="text-xl font-semibold text-cyan-400">📊 Smart Analytics</h3>
+                    <p class="mt-2 text-gray-300">Gain insights into daily, weekly, and monthly consumption trends.</p>
+                </div>
+                <div class="p-6 card hover:scale-105 transition">
+                    <h3 class="text-xl font-semibold text-cyan-400">🔔 Alerts & Notifications</h3>
+                    <p class="mt-2 text-gray-300">Get instant alerts for high consumption, risks, and abnormal usage.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-6 mt-12 border-t border-gray-700">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
+            <p>&copy; 2025 Energy Dashboard. All rights reserved.</p>
+            <div class="flex gap-4 mt-4 md:mt-0">
+                <a href="#" class="hover:text-cyan-400">Privacy Policy</a>
+                <a href="#" class="hover:text-cyan-400">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

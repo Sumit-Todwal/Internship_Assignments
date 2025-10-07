@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Devices</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top, #0a0f24, #000);
+      color: white;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .glow-container::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/stardust.png');
+      opacity: 0.2;
+      top: 0;
+      left: 0;
+    }
+
+    .device-form {
+      position: relative;
+      background: rgba(20, 20, 40, 0.85);
+      padding: 40px;
+      border-radius: 20px;
+      width: 480px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 0 25px #00f2ff, 0 0 50px #0066ff;
+      z-index: 2;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #00f2ff;
+      text-shadow: 0 0 15px #00f2ff;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #aad4ff;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #111827;
+      color: white;
+      font-size: 14px;
+      outline: none;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+    }
+
+    input:focus, select:focus {
+      box-shadow: 0 0 15px #00f2ff, 0 0 25px #0066ff;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #00f2ff, #0066ff);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 0 20px #00f2ff, 0 0 40px #0066ff;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .device-list {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(0, 0, 30, 0.6);
+      border-radius: 12px;
+      box-shadow: inset 0 0 10px rgba(0,255,255,0.2);
+    }
+
+    .device-item {
+      margin-bottom: 10px;
+      padding: 10px;
+      background: rgba(0,255,255,0.1);
+      border-radius: 8px;
+    }
+
+    .confirm-btn {
+      display: none;
+      margin-top: 20px;
+      background: linear-gradient(135deg, #00ff9d, #0099ff);
+    }
+
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #00f2ff;
+      border-radius: 50%;
+      animation: floatUp 10s linear infinite;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(100vh); opacity: 0; }
+      to { transform: translateY(-10vh); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-container"></div>
+  <div class="particles"></div>
+
+  <div class="device-form">
+    <h2>Register Device</h2>
+    <form id="deviceForm">
+      <div class="form-group">
+        <label for="industry">Industry Type</label>
+        <select id="industry" name="industry">
+          <option value="manufacturing">Manufacturing</option>
+          <option value="textile">Textile</option>
+          <option value="chemical">Chemical</option>
+          <option value="it">IT / Data Center</option>
+          <option value="automobile">Automobile</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="device-name">Device Name</label>
+        <input type="text" id="device-name" name="device_name" placeholder="e.g., Cooling System" required>
+      </div>
+
+      <div class="form-group">
+        <label for="device-type">Device Type</label>
+        <select id="device-type" name="device_type">
+          <option value="sensor">Sensor</option>
+          <option value="meter">Meter</option>
+          <option value="machine">Machine</option>
+          <option value="controller">Controller</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="capacity">Capacity (kW)</label>
+        <input type="number" id="capacity" name="capacity" placeholder="e.g., 250" required>
+      </div>
+
+      <button type="submit">Add Device</button>
+    </form>
+
+    <div class="device-list" id="deviceList">
+      <h3>Added Devices</h3>
+      <div id="devices"></div>
+    </div>
+
+    <button class="confirm-btn" id="confirmBtn">✅ Confirm & View Dashboard</button>
+  </div>
+
+  <script>
+    const particlesContainer = document.querySelector('.particles');
+    for (let i = 0; i < 40; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      particle.style.left = Math.random() * 100 + 'vw';
+      particle.style.animationDuration = (5 + Math.random() * 10) + 's';
+      particlesContainer.appendChild(particle);
+    }
+
+    const deviceForm = document.getElementById('deviceForm');
+    const devicesDiv = document.getElementById('devices');
+    const confirmBtn = document.getElementById('confirmBtn');
+
+    let devices = [];
+
+    deviceForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const industry = document.getElementById('industry').value;
+      const name = document.getElementById('device-name').value;
+      const type = document.getElementById('device-type').value;
+      const capacity = document.getElementById('capacity').value;
+
+      const device = { industry, name, type, capacity };
+      devices.push(device);
+
+      const deviceItem = document.createElement('div');
+      deviceItem.classList.add('device-item');
+      deviceItem.innerText = `${name} (${type}, ${capacity} kW) - ${industry}`;
+      devicesDiv.appendChild(deviceItem);
+
+      deviceForm.reset();
+      confirmBtn.style.display = 'block';
+    });
+
+    confirmBtn.addEventListener('click', function () {
+      // Later integrate with Flask route: redirect with devices list
+      alert("Redirecting to dashboard with " + devices.length + " devices...");
+      window.location.href = "/dashboard"; // Flask route
+    });
+  </script>
+</body>
+</html>
